@@ -22,7 +22,7 @@ public class MetricsManager {
     private static boolean isStandardBlacklist(List<BlockedItem> l) {
         if (l.size() == 3) {
             return new BlockedItem(Material.AIR, (byte) 0).equals(l.get(0))
-                    && new BlockedItem(Material.AIR, (byte) 0, "&cExample").equals(l.get(1))
+                    && new BlockedItem(Material.AIR, (byte) 0, "&cExample","Item with this text in lore will be blocked!").equals(l.get(1))
                     && new BlockedItem("&cExample, which blocks all items with this strange name!").equals(l.get(2));
         } else return false;
     }

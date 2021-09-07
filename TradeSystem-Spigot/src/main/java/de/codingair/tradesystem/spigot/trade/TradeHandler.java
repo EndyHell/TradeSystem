@@ -174,7 +174,7 @@ public class TradeHandler {
 
         if (this.blacklist.isEmpty()) {
             this.blacklist.add(new BlockedItem(Material.AIR, (byte) 0));
-            this.blacklist.add(new BlockedItem(Material.AIR, (byte) 0, "&cExample"));
+            this.blacklist.add(new BlockedItem(Material.AIR, (byte) 0, "&cExample","Item with this text in lore will be blocked!"));
             this.blacklist.add(new BlockedItem("&cExample, which blocks all items with this strange name!"));
             saveBlackList();
         }

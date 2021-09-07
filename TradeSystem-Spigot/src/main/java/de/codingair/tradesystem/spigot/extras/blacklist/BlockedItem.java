@@ -15,19 +15,21 @@ public class BlockedItem {
     private final @Nullable Material material;
     private final byte data;
     private final @Nullable String name;
+    private final String lore;
 
-    public BlockedItem(@Nullable Material material, byte data, @Nullable String name) {
+    public BlockedItem(@Nullable Material material, byte data, @Nullable String name, String lore) {
         this.material = material;
         this.data = data;
         this.name = name;
+        this.lore=lore;
     }
 
     public BlockedItem(@Nullable Material material, byte data) {
-        this(material, data, null);
+        this(material, data, null,null);
     }
 
     public BlockedItem(@Nullable String name) {
-        this(null, (byte) 0, name);
+        this(null, (byte) 0, name,null);
     }
 
     public static BlockedItem fromString(String s) {
@@ -37,8 +39,9 @@ public class BlockedItem {
             Material material = json.get("Material") == null ? null : Material.valueOf((String) json.get("Material"));
             byte data = material == null ? 0 : Byte.parseByte(json.get("Data") + "");
             String name = json.get("Displayname") == null ? null : (String) json.get("Displayname");
+            String lore = json.get("Lore") == null ? null : (String) json.get("Lore");
 
-            return new BlockedItem(material, data, name);
+            return new BlockedItem(material, data, name, lore);
         } catch (NoSuchFieldError | IllegalArgumentException ex) {
             return null;
         } catch (ParseException e) {
@@ -60,6 +63,9 @@ public class BlockedItem {
 
         if (name != null && item.hasItemMeta() && item.getItemMeta().getDisplayName() != null) {
             if (item.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', name))) matches = true;
+        }
+        if (lore != null && item.hasItemMeta() && item.getItemMeta().hasLore()) {
+            if (item.getItemMeta().getLore().toString().contains(lore)) matches=false;
         }
 
         return matches;
